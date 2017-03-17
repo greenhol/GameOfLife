@@ -1,1 +1,11 @@
-<gol-universe #universe (click)="universe.restart()"></gol-universe>
+<button md-raised-button class="sidenavButton" (click)="openSideNav()" [class.sidenavButton-hidden]="sideNavOpen">MENU</button>    
+<md-sidenav-container>
+    <md-sidenav mode="over" [opened]="sideNavOpen" (close-start)="onSideNavClosing()">
+        <div class="options">
+            <button md-raised-button (click)="runUniverse()">RESUME</button>
+            <button md-raised-button (click)="clearUniverse()">CLEAR</button>
+            <button md-raised-button (click)="restartUniverse()">RESTART</button>
+        </div>
+    </md-sidenav>
+    <gol-universe #universe></gol-universe>
+</md-sidenav-container>

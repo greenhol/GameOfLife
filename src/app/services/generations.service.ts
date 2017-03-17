@@ -28,6 +28,23 @@ export class GenerationsService {
     return cells;
   }
 
+  createFreshSpace(noRows, noCols): boolean[][] {
+
+    this.genMinus1 = '';
+    this.genMinus2 = '';
+    this.stagnation = false;
+
+    let cells =[];
+    for (let i=0; i<noRows; i++) {
+      let row = [];
+      for (let j=0; j<noCols; j++) {
+        row.push(false);
+      }
+      cells.push(row);
+    }
+    return cells;
+  }
+
   nextGen(cells: boolean[][]){
 
     if (!this.stagnation) this.checkStagnation(cells);

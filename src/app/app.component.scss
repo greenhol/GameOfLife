@@ -1,0 +1,38 @@
+md-sidenav-container {
+    background-color: black;
+}
+
+button {
+    margin: 16px 32px 0 32px;
+    width: 100px;
+}
+
+gol-universe {
+    margin: 46px 0;
+}
+
+md-sidenav-container {
+    height: 100%;
+}
+
+.sidenavButton {
+    position: absolute;
+    left: 0;
+    transition:left 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);    
+    top: 2px;
+    margin: 0;
+    width: 30px;
+    background-color: white;
+    z-index: 1;    
+}
+
+.sidenavButton-hidden {
+    left: -100px;
+    transition: none;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

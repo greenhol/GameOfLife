@@ -1,6 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+// @import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+// @import '~@angular/material/core/theming/prebuilt/pink-bluegrey.css';
+// @import '~@angular/material/core/theming/prebuilt/purple-green.css';
+
+html, body {
+    height: 100%;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
+    margin: 0;
     background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+gol-root {
+    height: 100%;
 }
