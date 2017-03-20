@@ -2,11 +2,6 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { GenerationsService } from 'app/services/generations.service';
 
-// const NO_COLS = 4;
-// const NO_ROWS = 3;
-
-const NO_COLS = 35;
-const NO_ROWS = 17;
 const GENERATION_DURATION = 200;
 
 @Component({
@@ -22,11 +17,14 @@ export class UniverseComponent implements OnInit, OnDestroy {
   private stagnation: boolean;
   private running: boolean;
 
+  @Input() noCols: number;
+  @Input() noRows: number;
+
   constructor(private generationsService: GenerationsService) {
-    this.cells = generationsService.createFreshGeneration(NO_ROWS, NO_COLS);
   }
 
   ngOnInit() {
+    this.cells = this.generationsService.createFreshGeneration(this.noRows, this.noCols);    
     this.run();
     this.generationsService.onStagnation.subscribe(() => {
       this.stagnation = true;
@@ -40,13 +38,13 @@ export class UniverseComponent implements OnInit, OnDestroy {
   restart() {
     this.stagnation = false;
     this.tickSub.unsubscribe();
-    this.cells = this.generationsService.createFreshGeneration(NO_ROWS, NO_COLS);
+    this.cells = this.generationsService.createFreshGeneration(this.noRows, this.noCols);
   }
 
   clear() {
     this.stagnation = false;
     this.tickSub.unsubscribe();
-    this.cells = this.generationsService.createFreshSpace(NO_ROWS, NO_COLS);
+    this.cells = this.generationsService.createFreshSpace(this.noRows, this.noCols);
   }
 
   run() {

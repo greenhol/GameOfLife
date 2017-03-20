@@ -1,18 +1,29 @@
 md-sidenav-container {
+    height: 100%;    
     background-color: black;
 }
 
+md-sidenav {
+    width: 20%;
+    min-width: 160px;
+}
+
 button {
-    margin: 16px 32px 0 32px;
+    margin-top: 16px;
+    width: 100px;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+md-input-container {
+    margin-top: 16px;
     width: 100px;
 }
 
 gol-universe {
     margin: 46px 0;
-}
-
-md-sidenav-container {
-    height: 100%;
 }
 
 .sidenavButton {
@@ -34,5 +45,5 @@ md-sidenav-container {
 .options{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 }

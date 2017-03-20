@@ -11,6 +11,10 @@ export class AppComponent {
   @ViewChild(UniverseComponent)
   private universe: UniverseComponent;
 
+  noCols = 35;
+  noRows = 17;
+  empty = false;
+
   openSideNav() {
     this.sideNavOpen = true;
     this.universe.pause();
@@ -26,10 +30,18 @@ export class AppComponent {
   }
 
   clearUniverse() {
+    this.empty = true;
     this.universe.clear();
   }
 
   restartUniverse() {
+    this.empty = false;
     this.universe.restart();
   }
+
+  isEmpty() {
+    console.log(this.empty);  
+    return this.empty;
+  }
+
 }

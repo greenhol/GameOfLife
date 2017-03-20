@@ -2,10 +2,21 @@
 <md-sidenav-container>
     <md-sidenav mode="over" [opened]="sideNavOpen" (close-start)="onSideNavClosing()">
         <div class="options">
+            <hr>
             <button md-raised-button (click)="runUniverse()">RESUME</button>
             <button md-raised-button (click)="clearUniverse()">CLEAR</button>
-            <button md-raised-button (click)="restartUniverse()">RESTART</button>
+            <button md-raised-button (click)="restartUniverse()">POPULATE</button>
+            <hr>
+            <md-input-container>
+                <input type="number" min="5" max="70" mdInput placeholder="Universe Width" [(ngModel)]="noCols" [disabled]="!empty" (change)="clearUniverse()">
+            </md-input-container>
+            <md-input-container>
+                <input type="number" min="5" max="36" mdInput placeholder="Universe Height" [(ngModel)]="noRows" [disabled]="!empty" (change)="clearUniverse()">
+            </md-input-container>
+            <md-input-container>
+                <input type="number" min="10" max="30" mdInput placeholder="Cell Size" value="20">
+            </md-input-container>
         </div>
     </md-sidenav>
-    <gol-universe #universe></gol-universe>
+    <gol-universe #universe [noCols]="noCols" [noRows]="noRows"></gol-universe>
 </md-sidenav-container>
