@@ -1,10 +1,7 @@
 $border-color: #666;
 $cell-color: #eee;
 $stagnation-color: #500;
-$cell-size: 20px;
-// $cell-size: 50px;
 $cell-gap: 1px;
-// $cell-gap: 10px;
 
 :host {
     align-items: center;
@@ -37,8 +34,6 @@ $cell-gap: 1px;
 }
 
 .cell {
-    width: $cell-size;
-    height: $cell-size;
     border-radius: 50%;
     margin: $cell-gap;
 }

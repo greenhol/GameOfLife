@@ -19,6 +19,7 @@ export class UniverseComponent implements OnInit, OnDestroy {
 
   @Input() noCols: number;
   @Input() noRows: number;
+  @Input() cellSize: number;
 
   constructor(private generationsService: GenerationsService) {
   }

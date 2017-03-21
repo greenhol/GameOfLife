@@ -1,3 +1,8 @@
 <div class="row" *ngFor="let row of cells" [ngClass]="{'stagnation': stagnation}">
-  <div class="cell" *ngFor="let cell of row" [ngClass]="{'alive': cell, 'stagnation': stagnation}"></div>  
+  <div class="cell"
+    *ngFor="let cell of row"
+    [ngClass]="{'alive': cell, 'stagnation': stagnation}"
+    [style.width]="cellSize + 'px'"
+    [style.height]="cellSize + 'px'">
+  </div>  
 </div>
