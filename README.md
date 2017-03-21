@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-This is a simple Game of Life implementation implemented with [angular](https://angular.io/) and a little bit of [angular material](https://material.angular.io/). 
+This is a simple Game of Life implementation using [angular](https://angular.io/) and a little bit of [angular material](https://material.angular.io/). 
 
 ## Installation & Running the App
 
