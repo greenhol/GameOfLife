@@ -1,5 +1,9 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 
+export interface cell {
+  alive: boolean;
+}
+
 @Injectable()
 export class GenerationsService {
 
@@ -11,7 +15,24 @@ export class GenerationsService {
 
   constructor() { }
 
-  createFreshGeneration(noRows, noCols): boolean[][] {
+  createFreshGeneration(noRows, noCols): cell[][] {
+
+    this.genMinus1 = '';
+    this.genMinus2 = '';
+    this.stagnation = false;
+
+    let cells = [];
+    for (let i=0; i<noRows; i++) {
+      let row = [];
+      for (let j=0; j<noCols; j++) {
+        row.push({alive: !!(Math.round(Math.random()))});
+      }
+      cells.push(row);
+    }
+    return cells;
+  }
+
+  createFreshSpace(noRows, noCols): cell[][] {
 
     this.genMinus1 = '';
     this.genMinus2 = '';
@@ -21,31 +42,14 @@ export class GenerationsService {
     for (let i=0; i<noRows; i++) {
       let row = [];
       for (let j=0; j<noCols; j++) {
-        row.push(!!(Math.round(Math.random())));
+        row.push({alive: false});
       }
       cells.push(row);
     }
     return cells;
   }
 
-  createFreshSpace(noRows, noCols): boolean[][] {
-
-    this.genMinus1 = '';
-    this.genMinus2 = '';
-    this.stagnation = false;
-
-    let cells =[];
-    for (let i=0; i<noRows; i++) {
-      let row = [];
-      for (let j=0; j<noCols; j++) {
-        row.push(false);
-      }
-      cells.push(row);
-    }
-    return cells;
-  }
-
-  nextGen(cells: boolean[][]){
+  nextGen(cells: cell[][]){
 
     if (!this.stagnation) this.checkStagnation(cells);
 
@@ -56,18 +60,18 @@ export class GenerationsService {
       
         let amoutNeightbours = this.countNeightbours(cells, i, j);
         
-        if (cells[i][j]) {
+        if (cells[i][j].alive) {
           if (amoutNeightbours < 2 || amoutNeightbours > 3) {
             // Dying
-            nextGen[i][j] = false;
+            nextGen[i][j].alive = false;
           } else {
             // Surviving
-            nextGen[i][j] = true;
+            nextGen[i][j].alive = true;
           }
         } else {
           if (amoutNeightbours === 3) {
             // Born
-            nextGen[i][j] = true;
+            nextGen[i][j].alive = true;
           }
         }
       }
@@ -75,12 +79,16 @@ export class GenerationsService {
     return nextGen;
   }
 
-  private cloneGen(cells: boolean[][]) {
+  resetStagnation() {
+    this.stagnation = false;
+  }
+
+  private cloneGen(cells: cell[][]) {
     let clone = [];
     for (var i = 0; i < cells.length; i++) {
       let row = [];
       for (var j = 0; j < cells[i].length; j++) {
-        row.push(cells[i][j]);
+        row.push({alive: cells[i][j].alive});
       }
       clone.push(row);
     }
@@ -89,18 +97,18 @@ export class GenerationsService {
 
   private countNeightbours(cells, i, j): number {
     let cnt = 0;
-    if (cells[i-1] && cells[i-1][j-1]) cnt++;
-    if (cells[i-1] && cells[i-1][j]) cnt++;
-    if (cells[i-1] && cells[i-1][j+1]) cnt++;
-    if (cells[i] && cells[i][j-1]) cnt++;
-    if (cells[i] && cells[i][j+1]) cnt++;
-    if (cells[i+1] && cells[i+1][j-1]) cnt++;
-    if (cells[i+1] && cells[i+1][j]) cnt++;
-    if (cells[i+1] && cells[i+1][j+1]) cnt++;
+    if (cells[i-1] && cells[i-1][j-1] && cells[i-1][j-1].alive) cnt++;
+    if (cells[i-1] && cells[i-1][j] && cells[i-1][j].alive) cnt++;
+    if (cells[i-1] && cells[i-1][j+1] && cells[i-1][j+1].alive) cnt++;
+    if (cells[i] && cells[i][j-1] && cells[i][j-1].alive) cnt++;
+    if (cells[i] && cells[i][j+1] && cells[i][j+1].alive) cnt++;
+    if (cells[i+1] && cells[i+1][j-1] && cells[i+1][j-1].alive) cnt++;
+    if (cells[i+1] && cells[i+1][j] && cells[i+1][j].alive) cnt++;
+    if (cells[i+1] && cells[i+1][j+1] && cells[i+1][j+1].alive) cnt++;
     return cnt;
   }
 
-  private checkStagnation(newCells: boolean[][]) {
+  private checkStagnation(newCells: cell[][]) {
 
     let currentGen = this.serializeGeneration(newCells);
     
@@ -113,7 +121,7 @@ export class GenerationsService {
     this.genMinus1 = currentGen;
   }
 
-  private serializeGeneration(cells: boolean[][]): string {
+  private serializeGeneration(cells: cell[][]): string {
     return JSON.stringify(cells);
   }
 }

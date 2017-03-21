@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
-import { GenerationsService } from 'app/services/generations.service';
+import { GenerationsService, cell } from 'app/services/generations.service';
 
 const GENERATION_DURATION = 200;
 
@@ -11,7 +11,7 @@ const GENERATION_DURATION = 200;
 })
 export class UniverseComponent implements OnInit, OnDestroy {
 
-  private cells: boolean[][];
+  private cells: cell[][];
   private timer: Observable<number>;  
   private tickSub: Subscription;
   private stagnation: boolean;
@@ -63,5 +63,12 @@ export class UniverseComponent implements OnInit, OnDestroy {
 
   toggle() {
     this.running ? this.pause() : this.run();
+  }
+
+  cellClicked(cell: cell) {
+    if (this.running) return;
+    this.stagnation = false;
+    this.generationsService.resetStagnation();
+    cell.alive = !cell.alive;
   }
 }

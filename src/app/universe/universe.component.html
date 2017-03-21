@@ -1,8 +1,9 @@
 <div class="row" *ngFor="let row of cells" [ngClass]="{'stagnation': stagnation}">
   <div class="cell"
     *ngFor="let cell of row"
-    [ngClass]="{'alive': cell, 'stagnation': stagnation}"
+    [ngClass]="{'alive': cell.alive, 'stagnation': stagnation, 'running': running}"
     [style.width]="cellSize + 'px'"
-    [style.height]="cellSize + 'px'">
+    [style.height]="cellSize + 'px'"
+    (click)="cellClicked(cell)">
   </div>  
 </div>
