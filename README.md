@@ -21,3 +21,7 @@ Some simple rules:
 4. Universe size can only be adjusted when wiped out (cleared) before
 5. Universe will turn red when no significant change is detected anymore
 6. Have fun!
+
+## Sample
+
+![](./Screenshot.png "Angular GameOfLife")
