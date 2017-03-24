@@ -16,12 +16,15 @@
             <md-input-container>
                 <input type="number" min="10" max="30" mdInput placeholder="Cell Size" [(ngModel)]="cellSize">
             </md-input-container>
+            <hr>
+            <md-checkbox [(ngModel)]="showDecay">Show Decay</md-checkbox>
         </div>
     </md-sidenav>
     <gol-universe
         #universe
         [noCols]="noCols"
         [noRows]="noRows"
-        [cellSize]="cellSize">
+        [cellSize]="cellSize"
+        [showDecay]="showDecay">
     </gol-universe>
 </md-sidenav-container>

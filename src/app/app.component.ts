@@ -14,6 +14,7 @@ export class AppComponent {
   noCols = 35;
   noRows = 17;
   cellSize = 20;
+  showDecay = false;
   empty = false;
 
   openSideNav() {

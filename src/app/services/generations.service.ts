@@ -2,7 +2,12 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 
 export interface cell {
   alive: boolean;
+  intensity: number;
 }
+
+export const MAX_INTENSITY = 255;
+export const MIN_INTENSITY = 29;
+const DECAY_RATE = 24;
 
 @Injectable()
 export class GenerationsService {
@@ -25,7 +30,11 @@ export class GenerationsService {
     for (let i=0; i<noRows; i++) {
       let row = [];
       for (let j=0; j<noCols; j++) {
-        row.push({alive: !!(Math.round(Math.random()))});
+        let alive = !!(Math.round(Math.random()));
+        row.push({
+          alive: alive,
+          intensity: (alive ? MAX_INTENSITY : MIN_INTENSITY)
+        });
       }
       cells.push(row);
     }
@@ -64,14 +73,21 @@ export class GenerationsService {
           if (amoutNeightbours < 2 || amoutNeightbours > 3) {
             // Dying
             nextGen[i][j].alive = false;
+            nextGen[i][j].intensity = MAX_INTENSITY - DECAY_RATE;
           } else {
             // Surviving
             nextGen[i][j].alive = true;
+            nextGen[i][j].intensity = MAX_INTENSITY;
           }
         } else {
           if (amoutNeightbours === 3) {
             // Born
             nextGen[i][j].alive = true;
+            nextGen[i][j].intensity = MAX_INTENSITY;
+          } else if (cells[i][j].intensity > (MIN_INTENSITY+DECAY_RATE)) {
+            nextGen[i][j].intensity = cells[i][j].intensity - DECAY_RATE;
+          } else {
+            nextGen[i][j].intensity = MIN_INTENSITY;
           }
         }
       }
@@ -84,15 +100,7 @@ export class GenerationsService {
   }
 
   private cloneGen(cells: cell[][]) {
-    let clone = [];
-    for (var i = 0; i < cells.length; i++) {
-      let row = [];
-      for (var j = 0; j < cells[i].length; j++) {
-        row.push({alive: cells[i][j].alive});
-      }
-      clone.push(row);
-    }
-    return clone;
+    return JSON.parse(JSON.stringify(cells));
   }
 
   private countNeightbours(cells, i, j): number {

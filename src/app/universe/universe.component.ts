@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
-import { GenerationsService, cell } from 'app/services/generations.service';
+import { GenerationsService, cell, MAX_INTENSITY, MIN_INTENSITY } from 'app/services/generations.service';
 
 const GENERATION_DURATION = 200;
 
@@ -20,8 +20,11 @@ export class UniverseComponent implements OnInit, OnDestroy {
   @Input() noCols: number;
   @Input() noRows: number;
   @Input() cellSize: number;
+  @Input() showDecay: boolean;
 
   constructor(private generationsService: GenerationsService) {
+
+    this.showDecay = true;
   }
 
   ngOnInit() {
@@ -69,6 +72,17 @@ export class UniverseComponent implements OnInit, OnDestroy {
     if (this.running) return;
     this.stagnation = false;
     this.generationsService.resetStagnation();
+    
     cell.alive = !cell.alive;
+    cell.intensity = (cell.alive ? MAX_INTENSITY : MIN_INTENSITY)
+  }
+
+  getCellColor(cell) {
+    let intensity = this.showDecay ? cell.intensity : cell.alive ? MAX_INTENSITY : MIN_INTENSITY;
+    if (this.stagnation) {
+      if (!cell.alive) return 0; 
+      return 'rgb(' + intensity + ', 0, 0)';  
+    }
+    return 'rgb(' + intensity + ', ' + intensity + ', ' + intensity + ')';
   }
 }
