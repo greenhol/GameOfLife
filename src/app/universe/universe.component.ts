@@ -23,8 +23,6 @@ export class UniverseComponent implements OnInit, OnDestroy {
   @Input() showDecay: boolean;
 
   constructor(private generationsService: GenerationsService) {
-
-    this.showDecay = true;
   }
 
   ngOnInit() {
