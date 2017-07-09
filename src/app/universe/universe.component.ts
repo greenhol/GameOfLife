@@ -11,7 +11,7 @@ const GENERATION_DURATION = 200;
 })
 export class UniverseComponent implements OnInit, OnDestroy {
 
-  private cells: cell[][];
+  public cells: cell[][];
   private timer: Observable<number>;  
   private tickSub: Subscription;
   private stagnation: boolean;
