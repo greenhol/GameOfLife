@@ -22,7 +22,7 @@ export class AppComponent {
     this.universe.pause();
   }
 
-  onSideNavClosing() {
+  onSideNavClose() {
     this.sideNavOpen = false;
   }
 

@@ -1,6 +1,6 @@
 <button md-raised-button class="sidenavButton" (click)="openSideNav()" [class.sidenavButton-hidden]="sideNavOpen">MENU</button>    
-<md-sidenav-container>
-    <md-sidenav mode="over" [opened]="sideNavOpen" (close-start)="onSideNavClosing()">
+<md-sidenav-container (backdropClick)="onSideNavClose()">
+    <md-sidenav disableClose mode="over" [opened]="sideNavOpen">
         <div class="options">
             <hr>
             <button md-raised-button (click)="runUniverse()">RESUME</button>
