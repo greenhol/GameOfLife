@@ -1,11 +1,11 @@
 {
   "name": "game-of-life",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href GameOfLife --prod --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
